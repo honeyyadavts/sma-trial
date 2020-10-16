@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import NavigationContainer from './screens/NavigationContainer';
-import RightSideComponent from './screens/RightSideComponent';
+import NavigationContainer from './addBookingModule/NavigationContainer';
+import ContentContainer from './addBookingModule/ContentContainer';
 import Button from "@material-ui/core/Button";
 
 function getSteps() {
@@ -68,7 +68,7 @@ function App() {
         <NavigationContainer steps={steps} activeStep={activeStep} />
       </div>
       <div style={{display:"flex", flex:1}}>
-        <RightSideComponent errors={errors} handleErrors={handleErrors} data={formData} handleData={handleData} NextButton={NextButton} activeStep={activeStep} />
+        <ContentContainer errors={errors} handleErrors={handleErrors} data={formData} handleData={handleData} NextButton={NextButton} activeStep={activeStep} />
       </div>
     </div>
   );
