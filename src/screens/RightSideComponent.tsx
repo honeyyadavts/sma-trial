@@ -1,85 +1,73 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
 import TextField from '@material-ui/core/TextField';
 
-const RightSideComponent1 = ({ handleNext, handleData } : any) => {
-  const [ name, setName ] = React.useState('');
-  const [ surName, setSurName ] = React.useState('');
+const PatientDetails = ({ NextButton, handleData, errors, handleErrors } : any) => {
   return(
     <div style={{display:"flex", flex:1, flexDirection: "column"}}>
       <div style={{display:"flex", flexDirection:"row", justifyContent:"space-around", alignItems:"flex-start"}}>
         <div style={{fontSize: 40}}>
           Patient Details
         </div>
-        <Button style={{margin: 10}} variant="contained" color="primary" onClick={() => {
-          if(name == '' || surName == '') return;
-          handleNext()
-          }}>
-          Next
-        </Button>
+        <NextButton inputFeilds={["textFeild1", "textFeild2"]} />
       </div>
       <div style={{display:"flex", flex:1, flexDirection:"row", justifyContent:"flex-start", alignItems:"flex-start"}}>
-        <TextField error={name.length == 0} onChange={(e) => {handleData({name: e.target.value}); setName(e.target.value)}} style={{margin:20}} label="Name" variant="outlined" />
-        <TextField error={surName.length == 0} onChange={(e) => {handleData({surName: e.target.value}); setSurName(e.target.value)}} style={{margin:20}} label="Surname" variant="outlined" />
+        <TextField error={errors[0]} onChange={(e) => {handleErrors(e, 0); handleData({ textFeild1 : e.target.value }) }} style={{margin:20}} label="Name" variant="outlined" />
+        <TextField error={errors[1]} onChange={(e) => {handleErrors(e, 1); handleData({ textFeild2 : e.target.value }) }} style={{margin:20}} label="Surname" variant="outlined" />
       </div>
     </div>
   );
 }
 
-const RightSideComponent2 = ({ handleNext, handleData } : any) => {
+const OriginDestination = ({ NextButton, handleData, errors, handleErrors } : any) => {
   return(
-    <div style={{display:"flex", flexDirection:"column",flex:1}}>
+    <div style={{display:"flex", flex:1, flexDirection: "column"}}>
       <div style={{display:"flex", flexDirection:"row", justifyContent:"space-around", alignItems:"flex-start"}}>
         <div style={{fontSize: 40}}>
-          Origin & Destination
+        Origin & Destination
         </div>
-        <Button style={{margin: 10}} variant="contained" color="primary" onClick={handleNext}>
-          Next
-        </Button>
+        <NextButton inputFeilds={["textFeild3", "textFeild4"]} />
       </div>
       <div style={{display:"flex", flex:1, flexDirection:"row", justifyContent:"flex-start", alignItems:"flex-start"}}>
-        <TextField onChange={(e) => handleData({name2: e.target.value})} style={{margin:20}} label="Name2" variant="outlined" />
-        <TextField onChange={(e) => handleData({surName2: e.target.value})} style={{margin:20}} label="Surname2" variant="outlined" />
+        <TextField error={errors[2]} onChange={(e) => {handleErrors(e, 2); handleData({ textFeild3 : e.target.value }) }} style={{margin:20}} label="Name" variant="outlined" />
+        <TextField error={errors[3]} onChange={(e) => {handleErrors(e, 3); handleData({ textFeild4 : e.target.value }) }} style={{margin:20}} label="Surname" variant="outlined" />
       </div>
     </div>
   );
 }
 
-const RightSideComponent3 = ({ handleNext, handleData } : any) => {
+const PickDropTime = ({ NextButton, handleData, errors, handleErrors } : any) => {
   return(
-    <div style={{display:"flex", flex:1, flexDirection:"column"}}>
+    <div style={{display:"flex", flex:1, flexDirection: "column"}}>
       <div style={{display:"flex", flexDirection:"row", justifyContent:"space-around", alignItems:"flex-start"}}>
         <div style={{fontSize: 40}}>
           Pickup/Dropoff Time
         </div>
-        <Button style={{margin: 10}} variant="contained" color="primary" onClick={handleNext}>
-          Next
-        </Button>
+        <NextButton inputFeilds={["textFeild5", "textFeild6"]} />
       </div>
       <div style={{display:"flex", flex:1, flexDirection:"row", justifyContent:"flex-start", alignItems:"flex-start"}}>
-        <TextField onChange={(e) => handleData({name3: e.target.value})} style={{margin:20}} label="Name3" variant="outlined" />
-        <TextField onChange={(e) => handleData({surName3: e.target.value})} style={{margin:20}} label="Surname3" variant="outlined" />
+        <TextField error={errors[4]} onChange={(e) => {handleErrors(e, 4); handleData({ textFeild5 : e.target.value }) }} style={{margin:20}} label="Name" variant="outlined" />
+        <TextField error={errors[5]} onChange={(e) => {handleErrors(e, 5); handleData({ textFeild6 : e.target.value }) }} style={{margin:20}} label="Surname" variant="outlined" />
       </div>
     </div>
   );
 }
 
-const RightSideComponent4 = ({ data } : any) => {
+const Success = ({ data } : any) => {
   return(
     <div style={{display:"flex", flex:1}}>
       <div style={{display:"flex", flex:1, flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
-        <div style={{fontSize: 50}}>Your details are submitted successfully.</div>
-        <div>{JSON.stringify(data)}</div>
+        <div style={{fontSize: 40}}>Your details are submitted successfully.</div>
+        <div style={{fontSize: 20}}>{JSON.stringify(data)}</div>
       </div>
     </div>
   );
 }
 
 const componentMap : any = [
-  RightSideComponent1, RightSideComponent2, RightSideComponent3, RightSideComponent4
+  PatientDetails, OriginDestination, PickDropTime, Success
 ];
 
-export default function RightSideComponent({ handleNext, handleData, activeStep, data }: any) {
+export default function RightSideComponent({ NextButton, handleData, errors, handleErrors, activeStep, data }: any) {
   const Component = componentMap[activeStep];
-  return <Component data={data} handleNext={handleNext} handleData={handleData} />;
+  return <Component data={data} errors={errors} handleErrors={handleErrors} NextButton={NextButton} handleData={handleData} />;
 }

@@ -9,29 +9,29 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       width: "100%",
     },
-    container : {
-      paddingTop : 40,
-      paddingBottom : 40,
-      backgroundColor: "#02162f",
+    container: {
+      paddingTop: 40,
+      paddingBottom: 40,
+      backgroundColor: "#031c3c8f",
     },
     label: {
       color: "white",
-      '& .active' : {
-        color : "white"
-      }
-    }
+    },
   })
 );
 
-export default function VerticalLinearStepper({ steps, activeStep }: any) {
+export default function NavigationContainer({ steps, activeStep }: any) {
   const classes = useStyles();
-
   return (
     <div className={classes.root}>
-      <Stepper activeStep={activeStep} orientation="vertical" className={classes.container}>
-        {steps.map((label : any, index : any) => (
+      <Stepper
+        activeStep={activeStep}
+        orientation="vertical"
+        className={classes.container}
+      >
+        {steps.map((label: any, index: any) => (
           <Step key={label}>
-            <StepLabel classes={{ label: classes.label}}>{label}</StepLabel>
+            <StepLabel classes={{ label: classes.label }}>{label}</StepLabel>
           </Step>
         ))}
       </Stepper>
