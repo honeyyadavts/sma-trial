@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function NavigationContainer({ steps, activeStep }: any) {
+export default function NavigationContainer({ steps, activeStep, setActiveStep }: any) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -30,8 +30,12 @@ export default function NavigationContainer({ steps, activeStep }: any) {
         className={classes.container}
       >
         {steps.map((label: any, index: any) => (
-          <Step key={label}>
-            <StepLabel classes={{ label: classes.label }}>{label}</StepLabel>
+          <Step key={label} onClick={() => {
+            if(index < activeStep ){
+              setActiveStep(index)
+            }
+          }} >
+            <StepLabel style={{cursor: "pointer"}} classes={{ label: classes.label }}>{label}</StepLabel>
           </Step>
         ))}
       </Stepper>

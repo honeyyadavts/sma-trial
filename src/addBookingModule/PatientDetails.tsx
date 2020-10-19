@@ -1,18 +1,34 @@
 import React from "react";
-import TextField from '@material-ui/core/TextField';
+import TextInput from './TextInput';
 
-const PatientDetails = ({ NextButton, handleData, errors, handleErrors } : any) => {
+const PatientDetails = ({ NextButton, handleData, data } : any) => {
+
+  const handleNext = () => {
+    // Here we can do validations
+    if(!data.textField1 || data.textField1 == "" || !data.textField2 || data.textField2 == ""){
+      if(!data.textField1 && !data.textField2) handleData({ textField1 : "", textField2 : "" });
+      else if(!data.textField2) handleData({ textField2 : "" });
+      else if(!data.textField1) handleData({ textField1 : "" });
+      return false;
+    }
+    
+    // If validations are not passed return
+
+    // If validations are passed 
+    // then call API here
+  }
+
   return(
     <div style={{display:"flex", flex:1, flexDirection: "column"}}>
       <div style={{display:"flex", flexDirection:"row", justifyContent:"space-around", alignItems:"flex-start"}}>
-        <div style={{fontSize: 40}}>
+        <div style={{fontSize: 30}}>
           Patient Details
         </div>
-        <NextButton inputFeilds={["textFeild1", "textFeild2"]} />
+        <NextButton onClick={handleNext} />
       </div>
       <div style={{display:"flex", flex:1, flexDirection:"row", justifyContent:"flex-start", alignItems:"flex-start"}}>
-        <TextField error={errors[0]} onChange={(e) => {handleErrors(e, 0); handleData({ textFeild1 : e.target.value }) }} style={{margin:20}} label="Feild1" variant="outlined" />
-        <TextField error={errors[1]} onChange={(e) => {handleErrors(e, 1); handleData({ textFeild2 : e.target.value }) }} style={{margin:20}} label="Feild2" variant="outlined" />
+        <TextInput value={data.textField1} label="Field1" onChange={(e : any) => {handleData({ textField1 : e.target.value }) }} />
+        <TextInput value={data.textField2} label="Field2" onChange={(e : any) => {handleData({ textField2 : e.target.value }) }} />
       </div>
     </div>
   );

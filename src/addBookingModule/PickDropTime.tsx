@@ -1,18 +1,37 @@
 import React from "react";
-import TextField from '@material-ui/core/TextField';
+import TextInput from './TextInput';
 
-const PickDropTime = ({ NextButton, handleData, errors, handleErrors } : any) => {
+const PickDropTime = ({ NextButton, handleData, data } : any) => {
+
+  const handleNext = () => {
+    // Here we can do validations
+    if(!data.textField5 || data.textField5 == "" || !data.textField6 || data.textField6 == ""){
+      if(!data.textField5 && !data.textField6) handleData({ textField5 : "", textField6 : "" });
+      else if(!data.textField6) handleData({ textField6 : "" });
+      else if(!data.textField5) handleData({ textField5 : "" });
+      return false;
+    }
+    
+    // If validations are not passed return
+
+    // If validations are not passed 
+    // then call API here
+
+    // As this is our last component so you can navigate
+    alert("Last component. Your Date -> " + JSON.stringify(data));
+  }
+
   return(
     <div style={{display:"flex", flex:1, flexDirection: "column"}}>
       <div style={{display:"flex", flexDirection:"row", justifyContent:"space-around", alignItems:"flex-start"}}>
-        <div style={{fontSize: 40}}>
+        <div style={{fontSize: 30}}>
           Pickup/Dropoff Time
         </div>
-        <NextButton inputFeilds={["textFeild5", "textFeild6"]} />
+        <NextButton onClick={handleNext} />
       </div>
       <div style={{display:"flex", flex:1, flexDirection:"row", justifyContent:"flex-start", alignItems:"flex-start"}}>
-        <TextField error={errors[4]} onChange={(e) => {handleErrors(e, 4); handleData({ textFeild5 : e.target.value }) }} style={{margin:20}} label="Feild5" variant="outlined" />
-        <TextField error={errors[5]} onChange={(e) => {handleErrors(e, 5); handleData({ textFeild6 : e.target.value }) }} style={{margin:20}} label="Feild6" variant="outlined" />
+        <TextInput value={data.textField5} label="Field5" onChange={(e : any) => {handleData({ textField5 : e.target.value }) }} />
+        <TextInput value={data.textField6} label="Field6" onChange={(e : any) => {handleData({ textField6 : e.target.value }) }} />
       </div>
     </div>
   );
